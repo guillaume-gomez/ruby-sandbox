@@ -1,13 +1,26 @@
 #subject https://www.interviewcake.com/question/ruby/stock-price
 
+# def get_max_profit(stocks)
+#   return stocks[0] if stocks.size < 2
+#   max_profit = stocks[1] - stocks[0];
+#   stocks.each_with_index do |price_pivot, i|
+#     stocks.drop(i + 1).each do |comparant|
+#       if comparant - price_pivot > max_profit
+#         max_profit = comparant - price_pivot
+#       end
+#     end
+#   end
+#   max_profit
+# end
+
 def get_max_profit(stocks)
-  max_profit = 0;
-  stocks.each_with_index do |price_pivot, i|
-    stocks.drop(i).each do |comparant|
-      if price_pivot < comparant && comparant - price_pivot > max_profit
-        max_profit = comparant - price_pivot
-      end
-    end
+  return stocks[0] if stocks.size < 2
+  min_price = stocks[0]
+  max_profit = stocks[1] - stocks[0]
+  stocks.drop(1).each_with_index do |current_price, index|
+    potential_profit = current_price - min_price
+    max_profit = [max_profit, potential_profit].max
+    min_price  = [min_price, current_price].min
   end
   max_profit
 end
@@ -47,5 +60,24 @@ if result == 4
   puts "OK"
 else
   puts "result --> #{result} : expected 4"
+end
+puts "---------------------------------------"
+
+stock_prices_yesterday = [15, 13, 12, 8, 4, 2]
+result = get_max_profit(stock_prices_yesterday)
+if result == -1
+  puts "OK"
+else
+  puts "result --> #{result} : expected -1"
+end
+puts "---------------------------------------"
+
+
+stock_prices_yesterday = [15]
+result = get_max_profit(stock_prices_yesterday)
+if result == 15
+  puts "OK"
+else
+  puts "result --> #{result} : expected 15"
 end
 puts "---------------------------------------"
