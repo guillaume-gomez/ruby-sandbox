@@ -1,5 +1,3 @@
-#subject https://www.interviewcake.com/question/ruby/stock-price
-
 # def get_max_profit(stocks)
 #   return stocks[0] if stocks.size < 2
 #   max_profit = stocks[1] - stocks[0];
